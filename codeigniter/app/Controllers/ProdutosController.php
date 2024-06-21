@@ -71,5 +71,25 @@ class ProdutosController extends ResourceController
         }
         return $this->response->setJSON($response); //formatando para que venha em formato Json
     }
+
+
+    public function update($id = null){       
+        $data = $this->request->getJSON();
+        $response = [];
+        
+        if($this->produtoModel->update($id,$data)){
+            $response =[
+                'status' =>200,
+                'error' =>null,
+                'msg' =>[
+                        'sucess' => 'Dados atualizado com Sucesso'
+                ]
+            ];
+            return $this->respond($response);
+        }
+        else{
+        return $this->fail($this->produtoModel->errors()); //retorna o erro        
+        }
+    }    
     
 }
